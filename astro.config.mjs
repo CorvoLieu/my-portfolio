@@ -1,5 +1,7 @@
 import { defineConfig } from "astro/config";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   i18n: {
@@ -9,5 +11,12 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+
   redirects: { "/": { destination: "/en/", status: 301 } },
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
+  integrations: [tailwindcss()],
 });
