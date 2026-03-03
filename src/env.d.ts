@@ -6,6 +6,6 @@ declare namespace App {
   export interface Locals {
     env?: envType;
     t?: ReturnType<typeof import("./i18n/utils").useTranslations>["t"];
-    lang?: string;
+    lang?: import("@/i18n/utils").LangType;
   }
 }

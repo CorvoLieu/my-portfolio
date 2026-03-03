@@ -1,7 +1,14 @@
 ---
+import { Icon } from "astro-icon/components";
+import { languages, type LangType } from "@/i18n/utils.ts";
+import { cn } from "@/lib/utils";
 const { selectedItem } = Astro.props;
 
-const { t, lang } = Astro.locals;
+const { lang } = Astro.locals;
+const langItems = Object.entries(languages).map(([key, value]) => ({
+  key,
+  icon: value.icon,
+}));
 ---
 
 <aside
@@ -16,78 +23,77 @@ const { t, lang } = Astro.locals;
   <div class="nav-content">
     <a href={`/${lang}/`} class="w-nav-brand" aria-label="home">
       <div class="niv-data">
-        <img
-          src="/assets/sam.jpg"
-          loading="eager"
-          alt="Profile picture"
-          class="niv-image"
-        />
+        <img src="/assets/hao.jpeg" loading="eager" alt="Profile picture" class="niv-image" />
         <div>
-          <div class="label-white">Sam Bernstein</div>
-          <div class="label-gray">Software Engineer</div>
+          <div class="label-white">Hạo Liêu</div>
+          <div class="label-gray">DevOps Engineer</div>
         </div>
       </div>
     </a>
 
-    <nav role="navigation" class="w-nav-menu">
+    <nav role="navigation" class="container w-nav-menu h-full justify-between">
+      <div>
+        <a
+          href={`/${lang}/`}
+          class={`nav-link-container w-inline-block ${selectedItem === "home" ? "w--current" : ""}`}
+        >
+          <img src="/assets/home.svg" loading="eager" alt="" class="nav-link-image" />
+          <div>Home</div>
+        </a>
+        <a
+          href={`/${lang}/software-development`}
+          class={`nav-link-container w-inline-block ${
+            selectedItem === "software-development" ? "w--current" : ""
+          }`}
+          aria-current={selectedItem === "software-development" ? "page" : undefined}
+        >
+          <img src="/assets/code.svg" loading="eager" alt="" class="nav-link-image" />
+          <div>Software development</div>
+        </a>
+        <a
+          href={`/${lang}/devops`}
+          class={`nav-link-container w-inline-block ${
+            selectedItem === "devops" ? "w--current" : ""
+          }`}
+        >
+          <img src="/assets/dns.svg" loading="eager" alt="" class="nav-link-image" />
+          <div>DevOps</div>
+        </a>
+        <a
+          href={`/${lang}/personal-projects`}
+          class={`nav-link-container w-inline-block ${
+            selectedItem === "personal-projects" ? "w--current" : ""
+          }`}
+        >
+          <img src="/assets/favorite.svg" loading="eager" alt="" class="nav-link-image" />
+          <div>Personal projects</div>
+        </a>
+      </div>
+
       <a
-        href={`/${lang}/`}
-        class={`nav-link-container w-inline-block ${
-          selectedItem === "home" ? "w--current" : ""
-        }`}
-      >
-        <img
-          src="/assets/home.svg"
-          loading="eager"
-          alt=""
-          class="nav-link-image"
-        />
-        <div>Home</div>
-      </a>
-      <a
-        href={`/${lang}/software-development`}
-        class={`nav-link-container w-inline-block ${
-          selectedItem === "software-development" ? "w--current" : ""
-        }`}
-        aria-current={selectedItem === "software-development"
-          ? "page"
-          : undefined}
-      >
-        <img
-          src="/assets/code.svg"
-          loading="eager"
-          alt=""
-          class="nav-link-image"
-        />
-        <div>Software development</div>
-      </a>
-      <a
-        href={`/${lang}/devops`}
-        class={`nav-link-container w-inline-block ${
-          selectedItem === "devops" ? "w--current" : ""
-        }`}
-      >
-        <img
-          src="/assets/dns.svg"
-          loading="eager"
-          alt=""
-          class="nav-link-image"
-        />
-        <div>DevOps</div>
-      </a>
-      <a
-        href={`/${lang}/personal-projects`}
         class={`nav-link-container w-inline-block ${
           selectedItem === "personal-projects" ? "w--current" : ""
         }`}
       >
-        <img
-          src="/assets/favorite.svg"
-          loading="eager"
-          alt=""
-          class="nav-link-image"
-        />
-        <div>Personal projects</div>
+        <Icon name="lucide:globe" width="24" height="24" class="nav-link-image" />
+        <div
+          class="flex mx-auto items-center gap-4 nav-link-container-foreground bg-elevated rounded-full p-2"
+        >
+          {
+            langItems.map(({ icon, key }) => (
+              <button
+                class={cn(
+                  "nav-link-lang rounded-full cursor-pointer",
+                  key === lang ? "bg-sidebar" : "",
+                )}
+                data-lang={key}
+                current-lang={lang}
+              >
+                <Icon name={icon} width="24" height="24" />
+              </button>
+            ))
+          }
+        </div>
       </a>
     </nav>
 
@@ -103,7 +109,8 @@ const { t, lang } = Astro.locals;
   </div>
 
   <script>
-    import { setupNav } from "../scripts/nav.js";
+    import type { LangType } from "@/i18n/utils";
+    import { setupNav } from "@/scripts/nav.js";
 
     let cleanup;
     document.addEventListener("astro:page-load", () => {
@@ -113,6 +120,24 @@ const { t, lang } = Astro.locals;
 
     document.addEventListener("astro:before-swap", () => {
       if (cleanup) cleanup();
+    });
+
+    // This code runs in the browser
+    const buttons = document.querySelectorAll(".nav-link-lang");
+
+    const handleLangChange = (currentLang: LangType, newLang: LangType) => {
+      if (currentLang === newLang) return;
+      const url = new URL(window.location.href);
+      url.pathname = url.pathname.replace(`/${currentLang}/`, `/${newLang}/`);
+      window.location.href = url.toString();
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const newLang = button.getAttribute("data-lang");
+        const currentLang = button.getAttribute("current-lang");
+        handleLangChange(currentLang as LangType, newLang as LangType);
+      });
     });
   </script>
 </aside>

@@ -1,5 +1,6 @@
 {
-  "title": "My Portfolio",
-  "index.greeting": "Hi, I'm Sam.",
-  "index.subtitle": "I build things for the web."
+  "home.welcomeMessage": "Hi, I'm Hao.",
+  "home.introduction": "I am a DevOps Engineer and a cloud enthusiast.",
+  "home.details": "I specialize in cloud infrastructure, automation, and CI/CD pipelines. I'm passionate about continuous learning and collaborating with teammates.",
+  "title": "My Portfolio"
 }

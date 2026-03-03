@@ -1,12 +1,14 @@
 ---
-import Header from "../../components/Header.astro";
-import Sidebar from "../../components/Sidebar.astro";
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import useHomeData from "@hooks/useHomeData.tsx";
 
 export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
 }
 
 const { lang, t } = Astro.locals;
+const { homeData } = useHomeData(lang);
 ---
 
 <!doctype html>
@@ -20,19 +22,16 @@ const { lang, t } = Astro.locals;
           <main class="fold-content-container">
             <div class="fold-content">
               <h1>
-                {t("index.greeting", "Hi, I'm Sam.")}<br />{
-                  t("index.subtitle", "I build things for the web.")
-                }
+                {homeData.welcomeMessage}
               </h1>
+              <h3>
+                {homeData.introduction}
+              </h3>
               <p class="lead">
-                Experienced backend developer and cloud architect. A proactive
-                team member dedicated to continuous learning, problem-solving,
-                and aiding teammates in achieving quicker outcomes.
+                {homeData.details}
               </p>
             </div>
-            <a href="mailto:sam@overview.co.il	" class="button w-button"
-              >Contact</a
-            >
+            <a href="mailto:work@skyblieu.com" class="button w-button">Contact</a>
           </main>
           <div class="projects-section">
             <!-- Software Development -->
@@ -50,9 +49,7 @@ const { lang, t } = Astro.locals;
               <div class="single-projects-content">
                 <h4>Software Development</h4>
                 <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">
-                    Technologies &amp; tools
-                  </div>
+                  <div class="mini-label-white gray-color">Technologies &amp; tools</div>
                   <div class="chips-container chips-container-small-width">
                     <div class="single-chip small-chip">React</div>
                     <div class="single-chip small-chip">Next.js</div>
@@ -85,9 +82,7 @@ const { lang, t } = Astro.locals;
               <div class="single-projects-content">
                 <h4>DevOps &amp;&nbsp;Cloud</h4>
                 <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">
-                    Technologies &amp; tools
-                  </div>
+                  <div class="mini-label-white gray-color">Technologies &amp; tools</div>
                   <div class="chips-container chips-container-small-width">
                     <div class="single-chip small-chip">Terraform</div>
                     <div class="single-chip small-chip">Azure</div>

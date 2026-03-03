@@ -1,5 +1,6 @@
 {
-  "title": "Hồ sơ của tôi",
-  "index.greeting": "Xin chào, tôi là Hạo.",
-  "index.subtitle": "Tôi xây dựng các sản phẩm cho web."
+  "home.welcomeMessage": "Chào, mình là Hao.",
+  "home.introduction": "Mình là một DevOps Engineer với đam mê về công nghệ đám mây.",
+  "home.details": "Mình chuyên về cơ sở hạ tầng cloud, tự động hóa quy trình và CI/CD. Mình luôn tìm kiếm cơ hội học hỏi và hợp tác cùng đồng đội.",
+  "title": "Portfolio của Hạo"
 }

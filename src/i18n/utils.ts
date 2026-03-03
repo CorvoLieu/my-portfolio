@@ -6,16 +6,16 @@ const enPath = path.join(localesDir, "en.json");
 const viPath = path.join(localesDir, "vi.json");
 
 export const languages = {
-  en: "English",
-  vi: "Tiếng Việt",
+  en: { label: "English", icon: "flagpack:us" },
+  vi: { label: "Tiếng Việt", icon: "flagpack:vn" },
 };
+export type LangType = keyof typeof languages;
 
-export const defaultLang = "en";
+export const defaultLang: LangType = "en";
 
-const getFile = (p) =>
-  fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : {};
+const getFile = (p: string) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : {});
 
-export const useTranslations = (lang: keyof typeof languages) => {
+export const useTranslations = (lang: LangType) => {
   const t = (key: string, msg: string): string => {
     console.log(`Translating key: ${key} for language: ${lang}`); // Debug log
     const enData = getFile(enPath);
