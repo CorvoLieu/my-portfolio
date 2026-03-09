@@ -39,7 +39,6 @@ const { sideBarData } = useSideBarData(lang);
       <div>
         {
           sideBarData.map(({ label, href, img }) => (
-            // console.log("🔥 Selected route:", selectedRoute, "Current item href:", href), // Debug log
             <a
               href={`/${lang}${href}`}
               class={`nav-link-container w-inline-block ${

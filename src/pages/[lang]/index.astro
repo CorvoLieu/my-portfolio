@@ -1,4 +1,5 @@
 ---
+import { Routes } from "@/constants";
 import Header from "@components/Header.astro";
 import Sidebar from "@components/Sidebar.astro";
 import useHomeData from "@hooks/useHomeData.tsx";
@@ -16,7 +17,7 @@ const { homeData } = useHomeData(lang);
   <Header title="Corvo Lieu" />
   <body>
     <div class="content">
-      <Sidebar selectedItem="home" />
+      <Sidebar selectedItem={Routes.HOME} />
       <nav class="main">
         <div class="container">
           <main class="fold-content-container">

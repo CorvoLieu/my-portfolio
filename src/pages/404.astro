@@ -1,0 +1,41 @@
+---
+import { Routes } from "@/constants";
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import useHomeData from "@hooks/useHomeData.tsx";
+import { getEntry } from "astro:content";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
+}
+
+// const { slug } = Astro.params;
+// const entry = await getEntry("myCollection", slug);
+
+const { lang, t } = Astro.locals;
+---
+
+<!doctype html>
+<html>
+  <Header title="Corvo Lieu" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="home" />
+      <nav class="main">
+        <div class="container">
+          <div class="fold-content-container">
+            <div class="fold-content">
+              <h1>{t("notFound.comingSoon", "Coming Soon...")}</h1>
+              <h2>
+                {t("notFound.message1", "Two, three repository gits")}
+              </h2>
+              <h2>{t("notFound.message2", "The page you're looking for does not exist!!!")}</h2>
+            </div>
+          </div>
+        </div>
+
+        <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+      </nav>
+    </div>
+  </body>
+</html>
