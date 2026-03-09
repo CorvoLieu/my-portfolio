@@ -2,13 +2,17 @@
 import { Icon } from "astro-icon/components";
 import { languages, type LangType } from "@/i18n/utils.ts";
 import { cn } from "@/lib/utils";
-const { selectedItem } = Astro.props;
+import useProfileData from "@/hooks/useProfileData";
+import useSideBarData from "@/hooks/useSideBarData";
 
+const { selectedItem: selectedRoute } = Astro.props;
 const { lang } = Astro.locals;
 const langItems = Object.entries(languages).map(([key, value]) => ({
   key,
   icon: value.icon,
 }));
+const profileData = useProfileData(lang);
+const { sideBarData } = useSideBarData(lang);
 ---
 
 <aside
@@ -25,56 +29,31 @@ const langItems = Object.entries(languages).map(([key, value]) => ({
       <div class="niv-data">
         <img src="/assets/hao.jpeg" loading="eager" alt="Profile picture" class="niv-image" />
         <div>
-          <div class="label-white">Hạo Liêu</div>
-          <div class="label-gray">DevOps Engineer</div>
+          <div class="label-white">{profileData.name}</div>
+          <div class="label-gray">{profileData.title}</div>
         </div>
       </div>
     </a>
 
     <nav role="navigation" class="container w-nav-menu h-full justify-between">
       <div>
-        <a
-          href={`/${lang}/`}
-          class={`nav-link-container w-inline-block ${selectedItem === "home" ? "w--current" : ""}`}
-        >
-          <img src="/assets/home.svg" loading="eager" alt="" class="nav-link-image" />
-          <div>Home</div>
-        </a>
-        <a
-          href={`/${lang}/software-development`}
-          class={`nav-link-container w-inline-block ${
-            selectedItem === "software-development" ? "w--current" : ""
-          }`}
-          aria-current={selectedItem === "software-development" ? "page" : undefined}
-        >
-          <img src="/assets/code.svg" loading="eager" alt="" class="nav-link-image" />
-          <div>Software development</div>
-        </a>
-        <a
-          href={`/${lang}/devops`}
-          class={`nav-link-container w-inline-block ${
-            selectedItem === "devops" ? "w--current" : ""
-          }`}
-        >
-          <img src="/assets/dns.svg" loading="eager" alt="" class="nav-link-image" />
-          <div>DevOps</div>
-        </a>
-        <a
-          href={`/${lang}/personal-projects`}
-          class={`nav-link-container w-inline-block ${
-            selectedItem === "personal-projects" ? "w--current" : ""
-          }`}
-        >
-          <img src="/assets/favorite.svg" loading="eager" alt="" class="nav-link-image" />
-          <div>Personal projects</div>
-        </a>
+        {
+          sideBarData.map(({ label, href, img }) => (
+            // console.log("🔥 Selected route:", selectedRoute, "Current item href:", href), // Debug log
+            <a
+              href={`/${lang}${href}`}
+              class={`nav-link-container w-inline-block ${
+                selectedRoute === href ? "w--current" : ""
+              }`}
+            >
+              <Icon name={img} width="24" height="24" class="nav-link-image" />
+              <div class="nav-link-label">{label}</div>
+            </a>
+          ))
+        }
       </div>
 
-      <a
-        class={`nav-link-container w-inline-block ${
-          selectedItem === "personal-projects" ? "w--current" : ""
-        }`}
-      >
+      <a class={`nav-link-container w-inline-block`}>
         <Icon name="lucide:globe" width="24" height="24" class="nav-link-image" />
         <div
           class="flex mx-auto items-center gap-4 nav-link-container-foreground bg-elevated rounded-full p-2"
