@@ -1,7 +1,7 @@
 ---
 import Header from "@components/Header.astro";
 import Project from "@components/Project.astro";
-import Sidebar from "@components/Sidebar.astro";
+import Sidebar from "@components/sidebar/index.astro";
 export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
 }
@@ -47,12 +47,7 @@ const projects = [
         <div class="container">
           <div class="back-nav-container">
             <a href="/" class="back-nav-button w-inline-block"
-              ><img
-                src="/assets/back.svg"
-                loading="lazy"
-                alt=""
-                class="back-nav-img"
-              />
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
               <div>Back</div></a
             >
           </div>
@@ -62,11 +57,7 @@ const projects = [
               <div class="resouce-items">
                 {
                   projects.map((project) => (
-                    <Project
-                      title={project.title}
-                      desc={project.desc}
-                      tech={project.tech}
-                    />
+                    <Project title={project.title} desc={project.desc} tech={project.tech} />
                   ))
                 }
               </div>
