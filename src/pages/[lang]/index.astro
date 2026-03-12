@@ -8,7 +8,7 @@ export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
 }
 
-const { lang, t } = Astro.locals;
+const { lang } = Astro.locals;
 const { homeData } = useHomeData(lang);
 ---
 
@@ -32,7 +32,9 @@ const { homeData } = useHomeData(lang);
                 {homeData.details}
               </p>
             </div>
-            <a href="mailto:work@skyblieu.com" class="button w-button">Contact</a>
+            <a href="mailto:work@skyblieu.com" class="button w-button"
+              >Contact</a
+            >
           </main>
           <!-- <div class="projects-section">
           <a href="/software-development" class="projects-container">

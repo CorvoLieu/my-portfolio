@@ -13,11 +13,12 @@ export type LangType = keyof typeof languages;
 
 export const defaultLang: LangType = "en";
 
-const getFile = (p: string) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : {});
+const getFile = (p: string) =>
+  fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : {};
 
 export const useTranslations = (lang: LangType) => {
   const t = (key: string, msg: string): string => {
-    console.log(`Translating key: ${key} for language: ${lang}`); // Debug log
+    console.debug(`Translating key: ${key} for language: ${lang}`); // Debug log
     const enData = getFile(enPath);
     const viData = getFile(viPath);
     let updated = false;
@@ -34,7 +35,7 @@ export const useTranslations = (lang: LangType) => {
       updated = true;
     }
 
-    console.log(`Translations updated: ${process.env.NODE_ENV}`); // Debug log
+    console.debug(`Translations updated: ${process.env.NODE_ENV}`); // Debug log
     // Save changes to disk immediately so you can go fill them in
     if (updated && process.env.NODE_ENV === "development") {
       fs.writeFileSync(enPath, JSON.stringify(enData, null, 2));

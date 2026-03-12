@@ -1,0 +1,12 @@
+---
+import BaseError404 from "@/pages/404.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
+}
+
+const { lang = "en" } = Astro.locals;
+console.log("🔥 Rendering 404 page for lang:", lang);
+---
+
+<BaseError404 lang={lang} />
