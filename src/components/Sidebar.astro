@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { languages, type LangType } from "@/i18n/utils.ts";
+import { languages } from "@/i18n/utils.ts";
 import { cn } from "@/lib/utils";
 import useProfileData from "@/hooks/useProfileData";
 import useSideBarData from "@/hooks/useSideBarData";
@@ -27,7 +27,12 @@ const { sideBarData } = useSideBarData(lang);
   <div class="nav-content">
     <a href={`/${lang}/`} class="w-nav-brand" aria-label="home">
       <div class="niv-data">
-        <img src="/assets/hao.jpeg" loading="eager" alt="Profile picture" class="niv-image" />
+        <img
+          src="/assets/hao.jpeg"
+          loading="eager"
+          alt="Profile picture"
+          class="niv-image"
+        />
         <div>
           <div class="label-white">{profileData.name}</div>
           <div class="label-gray">{profileData.title}</div>
@@ -53,7 +58,12 @@ const { sideBarData } = useSideBarData(lang);
       </div>
 
       <a class={`nav-link-container w-inline-block`}>
-        <Icon name="lucide:globe" width="24" height="24" class="nav-link-image" />
+        <Icon
+          name="lucide:globe"
+          width="24"
+          height="24"
+          class="nav-link-image"
+        />
         <div
           class="flex mx-auto items-center gap-4 nav-link-container-foreground bg-elevated rounded-full p-2"
         >
@@ -90,32 +100,35 @@ const { sideBarData } = useSideBarData(lang);
     import type { LangType } from "@/i18n/utils";
     import { setupNav } from "@/scripts/nav.js";
 
+    const initLangButtons = () => {
+      // This code runs in the browser
+      const buttons = document.querySelectorAll(".nav-link-lang");
+
+      const handleLangChange = (currentLang: LangType, newLang: LangType) => {
+        if (currentLang === newLang) return;
+        const url = new URL(window.location.href);
+        url.pathname = url.pathname.replace(`/${currentLang}/`, `/${newLang}/`);
+        window.location.href = url.toString();
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const newLang = button.getAttribute("data-lang");
+          const currentLang = button.getAttribute("current-lang");
+          handleLangChange(currentLang as LangType, newLang as LangType);
+        });
+      });
+    };
+
     let cleanup;
     document.addEventListener("astro:page-load", () => {
       if (cleanup) cleanup();
       cleanup = setupNav();
+      initLangButtons();
     });
 
     document.addEventListener("astro:before-swap", () => {
       if (cleanup) cleanup();
-    });
-
-    // This code runs in the browser
-    const buttons = document.querySelectorAll(".nav-link-lang");
-
-    const handleLangChange = (currentLang: LangType, newLang: LangType) => {
-      if (currentLang === newLang) return;
-      const url = new URL(window.location.href);
-      url.pathname = url.pathname.replace(`/${currentLang}/`, `/${newLang}/`);
-      window.location.href = url.toString();
-    };
-
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const newLang = button.getAttribute("data-lang");
-        const currentLang = button.getAttribute("current-lang");
-        handleLangChange(currentLang as LangType, newLang as LangType);
-      });
     });
   </script>
 </aside>

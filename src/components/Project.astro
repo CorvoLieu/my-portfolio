@@ -1,4 +1,5 @@
 ---
+import { useTranslations } from "@/i18n/utils";
 import { type ProjectProps } from "@lib/props";
 interface Props {
   project: ProjectProps;
@@ -6,7 +7,8 @@ interface Props {
 
 const { project } = Astro.props;
 const existLink = project.link && project.link.startsWith("https");
-console.log("🚀 ~ file: Project.astro:2 ~ existLink:", existLink);
+const { t } = useTranslations(Astro.locals.lang);
+console.debug("🚀 ~ file: Project.astro:2 ~ existLink:", existLink);
 ---
 
 <div class="single-item">
@@ -21,7 +23,12 @@ console.log("🚀 ~ file: Project.astro:2 ~ existLink:", existLink);
     Link:{" "}
     {
       existLink ? (
-        <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-desc">
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="project-desc"
+        >
           {project.link}
         </a>
       ) : (
@@ -29,8 +36,14 @@ console.log("🚀 ~ file: Project.astro:2 ~ existLink:", existLink);
       )
     }
   </h4>
-  <div class="mini-label-white">Technologies &amp; tools</div>
+  <div class="mini-label-white">
+    {t("projects.technologiesAndTools", "Technologies & Tools")}
+  </div>
   <div class="chips-container">
-    {project.technologies.map((techItem) => <div class="single-chip">{techItem}</div>)}
+    {
+      project.technologies.map((techItem) => (
+        <div class="single-chip">{techItem}</div>
+      ))
+    }
   </div>
 </div>

@@ -12,13 +12,17 @@ const { t } = Astro.locals;
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>{t("title", "My Portfolio")}</title>
+  <title>{t("header.title", "My Portfolio")}</title>
   <ViewTransitions />
   <meta content={title} property="og:title" />
   <meta content={title} property="twitter:title" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link href="https://fonts.googleapis.com/" rel="preconnect" />
-  <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin="anonymous" />
+  <link
+    href="https://fonts.gstatic.com/"
+    rel="preconnect"
+    crossorigin="anonymous"
+  />
   <script type="text/javascript">
     (function (window, document) {
       const docElem = document.documentElement;
@@ -37,6 +41,10 @@ const { t } = Astro.locals;
       }
     })(window, document);
   </script>
-  <link href="/assets/favicon-32x32.png" rel="shortcut icon" type="image/x-icon" />
+  <link
+    href="/assets/favicon-32x32.png"
+    rel="shortcut icon"
+    type="image/x-icon"
+  />
   <link href="/assets/favicon-32x32.png" rel="apple-touch-icon" />
 </head>
