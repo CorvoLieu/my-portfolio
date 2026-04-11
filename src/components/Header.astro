@@ -1,0 +1,50 @@
+---
+import { ViewTransitions } from "astro:transitions";
+// import "@/styles/newGlobal.css";
+import "@/styles/global.css";
+interface HeaderProps {
+  title: string;
+}
+const { title } = Astro.props as HeaderProps;
+
+const { t } = Astro.locals;
+---
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>{t("header.title", "My Portfolio")}</title>
+  <ViewTransitions />
+  <meta content={title} property="og:title" />
+  <meta content={title} property="twitter:title" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="https://fonts.googleapis.com/" rel="preconnect" />
+  <link
+    href="https://fonts.gstatic.com/"
+    rel="preconnect"
+    crossorigin="anonymous"
+  />
+  <script type="text/javascript">
+    (function (window, document) {
+      const docElem = document.documentElement;
+      const modClass = " w-mod-";
+
+      // Add 'js' class
+      docElem.className += modClass + "js";
+
+      // Add 'touch' class if touch is supported
+      const isTouch =
+        "ontouchstart" in window ||
+        (window.DocumentTouch && document instanceof window.DocumentTouch);
+
+      if (isTouch) {
+        docElem.className += modClass + "touch";
+      }
+    })(window, document);
+  </script>
+  <link
+    href="/assets/favicon-32x32.png"
+    rel="shortcut icon"
+    type="image/x-icon"
+  />
+  <link href="/assets/favicon-32x32.png" rel="apple-touch-icon" />
+</head>

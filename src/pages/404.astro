@@ -1,0 +1,48 @@
+---
+import { useTranslations, type LangType } from "@/i18n/server";
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
+}
+
+interface Props {
+  lang: LangType;
+}
+
+const lang = Astro.props.lang || Astro.locals.lang || "en";
+const { t } = useTranslations(lang as LangType);
+---
+
+<!doctype html>
+<html>
+  <Header title="Corvo Lieu" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem="home" />
+      <nav class="main">
+        <div class="container">
+          <div class="fold-content-container">
+            <div class="fold-content">
+              <h1>{t("notFound.comingSoon", "Coming Soon...")}</h1>
+              <h2>
+                {t("notFound.message1", "Two, three repository gits")}
+              </h2>
+              <h2>
+                {
+                  t(
+                    "notFound.message2",
+                    "The page you're looking for does not exist!!!",
+                  )
+                }
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+      </nav>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+---
+import { Routes } from "@/constants";
+import useProjectData from "@/hooks/useProjectData";
+import { useTranslations } from "@/i18n/server";
+import { tagKeys } from "@/lib/tags";
+import Header from "@components/Header.astro";
+import Project from "@components/Project.astro";
+import Sidebar from "@components/Sidebar.astro";
+import BackButton from "@components/backButton.tsx";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
+}
+
+const { lang } = Astro.locals;
+const { t } = useTranslations(lang);
+const { getProjectsByTag } = useProjectData(lang);
+const webProjects = getProjectsByTag(tagKeys.BACKEND, tagKeys.FRONTEND, tagKeys.FULLSTACK);
+---
+
+<!doctype html>
+<html>
+  <Header title={t("webDevelopment.title", "Website Development | Hao Lieu")} />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem={Routes.WEB_DEVELOPMENT} />
+      <nav class="main">
+        <div class="container">
+          <BackButton lang={lang} href={Routes.HOME} />
+          <div class="content-container">
+            <h1>{t("webDevelopment.content.title", "Website Development")}</h1>
+            <section class="items-container">
+              <div class="resouce-items">
+                {webProjects.map((project) => <Project project={project} />)}
+              </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

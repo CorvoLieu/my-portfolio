@@ -1,0 +1,43 @@
+---
+import { Routes } from "@/constants";
+import Header from "@components/Header.astro";
+import Sidebar from "@components/Sidebar.astro";
+import useHomeData from "@hooks/useHomeData.tsx";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
+}
+
+const { lang } = Astro.locals;
+const { homeData } = useHomeData(lang);
+---
+
+<!doctype html>
+<html>
+  <Header title="Corvo Lieu" />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem={Routes.HOME} />
+      <nav class="main">
+        <div class="container">
+          <main class="fold-content-container">
+            <div class="fold-content">
+              <h1>
+                {homeData.welcomeMessage}
+              </h1>
+              <h3>
+                {homeData.introduction}
+              </h3>
+              <p class="lead">
+                {homeData.details}
+              </p>
+            </div>
+            <a href="mailto:work@skyblieu.com" class="button w-button"
+              >Contact</a
+            >
+          </main>
+        </div>
+      </nav>
+    </div>
+  </body>
+</html>

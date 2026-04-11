@@ -1,0 +1,49 @@
+---
+import { useTranslations } from "@/i18n/server";
+import { type ProjectProps } from "@lib/props";
+interface Props {
+  project: ProjectProps;
+}
+
+const { project } = Astro.props;
+const existLink = project.link && project.link.startsWith("https");
+const { t } = useTranslations(Astro.locals.lang);
+console.debug("🚀 ~ file: Project.astro:2 ~ existLink:", existLink);
+---
+
+<div class="single-item">
+  <h3>{project.title}</h3>
+  <h4 class="project-desc w-richtext pl-10">
+    {project.description}
+  </h4>
+  <h4>
+    Role: <span class="project-desc">{project.role}</span>
+  </h4>
+  <h4>
+    Link:{" "}
+    {
+      existLink ? (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="project-desc"
+        >
+          {project.link}
+        </a>
+      ) : (
+        <span class="project-desc">{project.link}</span>
+      )
+    }
+  </h4>
+  <div class="mini-label-white">
+    {t("projects.technologiesAndTools", "Technologies & Tools")}
+  </div>
+  <div class="chips-container">
+    {
+      project.technologies.map((techItem) => (
+        <div class="single-chip">{techItem}</div>
+      ))
+    }
+  </div>
+</div>

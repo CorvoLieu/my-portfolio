@@ -1,0 +1,43 @@
+---
+import { Routes } from "@/constants";
+import useProjectData from "@/hooks/useProjectData";
+import { useTranslations } from "@/i18n/server";
+import { tagKeys } from "@/lib/tags";
+import Header from "@components/Header.astro";
+import Project from "@components/Project.astro";
+import Sidebar from "@components/Sidebar.astro";
+import BackButton from "@components/backButton.tsx";
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "vi" } }];
+}
+
+const { lang } = Astro.locals;
+const { t } = useTranslations(lang);
+const { getProjectsByTag } = useProjectData(lang);
+const devopsProjects = getProjectsByTag(tagKeys.AUTOMATION, tagKeys.CLOUD_INFRAS, tagKeys.LOGGING);
+---
+
+<!doctype html>
+<html>
+  <Header title={t("devops.title", "Devops | Hao Lieu")} />
+  <body>
+    <div class="content">
+      <Sidebar selectedItem={Routes.DEVOPS} />
+      <nav class="main">
+        <div class="container">
+          <BackButton lang={lang} href={Routes.HOME} />
+          <div class="content-container">
+            <h1>{t("devops.content.title", "Devops")}</h1>
+            <section class="items-container">
+              <div class="resouce-items">
+                {devopsProjects.map((project) => <Project project={project} />)}
+              </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>
