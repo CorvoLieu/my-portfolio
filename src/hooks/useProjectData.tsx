@@ -1,4 +1,4 @@
-import { useTranslations, type LangType } from "@/i18n/utils";
+import { useTranslations, type LangType } from "@/i18n/server";
 import { tagKeys } from "@/lib/tags";
 import type { ProjectProps } from "@lib/props";
 
@@ -14,40 +14,75 @@ const useProjectData = (lang: LangType) => {
         "Designed and developed a personal portfolio website using Astro, React, and Tailwind CSS. Implemented responsive design principles to ensure optimal viewing across devices. Integrated internationalization (i18n) support for English and Vietnamese languages, allowing users to switch between languages seamlessly. Deployed the website on Vercel for fast and reliable hosting.",
       ),
       link: "https://github.com/CorvoLieu/my-porfolio",
-      technologies: ["Astro", "React", "Tailwind CSS", "NPM", "Vercel", "TypeScript"],
+      technologies: [
+        "Astro",
+        "React",
+        "Tailwind CSS",
+        "NPM",
+        "Vercel",
+        "TypeScript",
+      ],
       tags: [tagKeys.CLOUD_INFRAS, tagKeys.FRONTEND, tagKeys.PUBLIC],
     },
     {
-      title: t("projects.personalDedicatedServer.title", "Personal Dedicated Server"),
+      title: t(
+        "projects.personalDedicatedServer.title",
+        "Personal Dedicated Server",
+      ),
       role: "DevOps Engineer",
       description: t(
         "projects.personalDedicatedServer.description",
         "Set up and maintained a personal dedicated server for hosting various applications and services (Minecraft Server, 3D Printer Controller). Configured the server with necessary software and security measures to ensure optimal performance and protection against potential threats. Regularly monitored server performance and implemented updates and optimizations as needed.",
       ),
       link: "https://github.com/CorvoLieu/my-personal-server",
-      technologies: ["Proxmox", "Docker", "Caddy", "Minecraft Server", "OctoPrint"],
+      technologies: [
+        "Proxmox",
+        "Docker",
+        "Caddy",
+        "Minecraft Server",
+        "OctoPrint",
+      ],
       tags: [tagKeys.CLOUD_INFRAS, tagKeys.PRIVATE],
     },
     {
-      title: t("projects.githubCICD.title", "Github CI/CD Pipeline for Serverless Application"),
+      title: t(
+        "projects.githubCICD.title",
+        "Github CI/CD Pipeline for Serverless Application",
+      ),
       role: "DevOps Engineer",
       description: t(
         "projects.githubCICD.description",
         "Implemented a CI/CD pipeline for a serverless application using Bitbucket Pipeline. Automated the build and deployment processes to improve development efficiency and reduce time-to-market. Collaborated with development teams to troubleshoot and optimize the pipeline for better performance.",
       ),
       link: "[Private Repository]",
-      technologies: ["Git", "Bitbucket Pipeline", "GCP", "GAE", "Google Cloud Run"],
+      technologies: [
+        "Git",
+        "Bitbucket Pipeline",
+        "GCP",
+        "GAE",
+        "Google Cloud Run",
+      ],
       tags: [tagKeys.CLOUD_INFRAS, tagKeys.AUTOMATION, tagKeys.PRIVATE],
     },
     {
-      title: t("projects.staticLandingPage.title", "Static Landing Page Website"),
+      title: t(
+        "projects.staticLandingPage.title",
+        "Static Landing Page Website",
+      ),
       role: "DevOps Engineer & Frontend Developer",
       description: t(
         "projects.staticLandingPage.description",
         "Designed and developed a static landing page website using Astro, React, and Tailwind CSS. Working closely with marketing team to ensure brand consistency. Implemented responsive design principles to ensure optimal viewing across devices. Deployed the website on Vercel for fast and reliable hosting.",
       ),
       link: "[Private Repository]",
-      technologies: ["Astro", "React", "Tailwind CSS", "NPM", "Vercel", "TypeScript"],
+      technologies: [
+        "Astro",
+        "React",
+        "Tailwind CSS",
+        "NPM",
+        "Vercel",
+        "TypeScript",
+      ],
       tags: [tagKeys.CLOUD_INFRAS, tagKeys.FRONTEND, tagKeys.PRIVATE],
     },
     {
@@ -65,7 +100,10 @@ const useProjectData = (lang: LangType) => {
       tags: [tagKeys.CLOUD_INFRAS, tagKeys.PRIVATE],
     },
     {
-      title: t("projects.uptimeMonitoringSystem.title", "Uptime Monitoring System"),
+      title: t(
+        "projects.uptimeMonitoringSystem.title",
+        "Uptime Monitoring System",
+      ),
       role: "DevOps Engineer",
       description: t(
         "projects.uptimeMonitoringSystem.description",
@@ -94,7 +132,11 @@ const useProjectData = (lang: LangType) => {
   ];
 
   const getProjectsByTags = (...tags: tagKeys[]) => {
-    return allProjects.filter((project) => tags.some((tag) => project.tags?.includes(tag))) || [];
+    return (
+      allProjects.filter((project) =>
+        tags.some((tag) => project.tags?.includes(tag)),
+      ) || []
+    );
   };
 
   return { allProjects, getProjectsByTag: getProjectsByTags };

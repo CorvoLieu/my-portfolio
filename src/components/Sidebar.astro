@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { languages } from "@/i18n/utils.ts";
+import { languages } from "@/i18n/server";
 import { cn } from "@/lib/utils";
 import useProfileData from "@/hooks/useProfileData";
 import useSideBarData from "@/hooks/useSideBarData";
@@ -97,7 +97,7 @@ const { sideBarData } = useSideBarData(lang);
   </div>
 
   <script>
-    import type { LangType } from "@/i18n/utils";
+    import type { LangType } from "@/i18n/server";
     import { setupNav } from "@/scripts/nav.js";
 
     const initLangButtons = () => {

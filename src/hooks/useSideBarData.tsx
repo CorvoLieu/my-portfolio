@@ -1,5 +1,5 @@
 import { Routes } from "@/constants";
-import { useTranslations, type LangType } from "@/i18n/utils";
+import { useTranslations, type LangType } from "@/i18n/server";
 import type React from "react";
 
 export interface SideBarDataProps {

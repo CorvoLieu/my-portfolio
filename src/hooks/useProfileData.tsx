@@ -1,4 +1,4 @@
-import { useTranslations, type LangType } from "@/i18n/utils";
+import { useTranslations, type LangType } from "@/i18n/server";
 
 export interface ProfileDataProps {
   name: string;
