@@ -5,6 +5,8 @@ import icon from "astro-icon";
 
 import react from "@astrojs/react";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   i18n: {
@@ -22,4 +24,5 @@ export default defineConfig({
   },
 
   integrations: [tailwindcss(), icon(), react()],
+  adapter: cloudflare()
 });
