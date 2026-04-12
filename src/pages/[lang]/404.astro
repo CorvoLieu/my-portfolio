@@ -6,7 +6,6 @@ export function getStaticPaths() {
 }
 
 const { lang = "en" } = Astro.locals;
-console.log("🔥 Rendering 404 page for lang:", lang);
 ---
 
 <BaseError404 lang={lang} />
