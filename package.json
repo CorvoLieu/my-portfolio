@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "yarn run build && wrangler dev",
     "astro": "astro",
-    "deploy": "yarn run build && wrangler deploy",
+    "deploy": "yarn run build && wrangler pages deploy",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
