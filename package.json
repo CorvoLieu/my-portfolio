@@ -8,10 +8,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "yarn run build && wrangler dev",
+    "astro": "astro",
+    "deploy": "yarn run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "12",
     "@astrojs/react": "^4.4.2",
     "@iconify-json/flagpack": "^1.2.7",
     "@iconify-json/lucide": "^1.2.95",
@@ -39,6 +42,7 @@
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.56.1"
+    "typescript-eslint": "^8.56.1",
+    "wrangler": "^4.81.1"
   }
 }
