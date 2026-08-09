@@ -20,7 +20,7 @@ jobs:
         run: apk add --no-cache gettext
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Generate .env file
         run: |
@@ -28,6 +28,9 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Install Wrangler CLI
+        run: npm install -g wrangler@4.81.1
 
       - name: Deploy to Staging
         env:
